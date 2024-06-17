@@ -20,9 +20,9 @@ load_dotenv()
 
 rapidapi_key = os.getenv("RAPIDAPI_KEY")
 discord_token = os.getenv("DISCORD_TOKEN")
-weather_api_key = "8c48d24c7dfefedea4576748cb75a9b4"  # Provided weather API key
-stock_api_key = "ZZPI6OFOKDMVU73W"  # Provided stock API key
-news_api_key = "9ff7cfe249b24143a455f004e309cfda"  # Provided News API key
+weather_api_key = os.getenv("WEATHER_API_KEY") # Provided weather API key
+stock_api_key = os.getenv("STOCK_API_KEY" ) # Provided stock API key
+news_api_key = os.getenv("NEWS_API_KEY")  # Provided News API key
 translation_api_key = os.getenv("TRANSLATION_API_KEY")
 
 # Initialize global chat variable
