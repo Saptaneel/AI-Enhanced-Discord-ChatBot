@@ -12,6 +12,7 @@ This Discord bot integrates with the ChatGPT API via RapidAPI to provide respons
    - Create a `.env` file in the project root.
    - Add your Discord bot token (`DISCORD_TOKEN`) and RapidAPI key (`RAPIDAPI_KEY`) to the `.env` file.
 
+   
    3. **Running the Bot**
 - Run the Python script (`bot.py` or your chosen filename) to start the bot.
 - Ensure your bot is invited to your Discord server with appropriate permissions.
