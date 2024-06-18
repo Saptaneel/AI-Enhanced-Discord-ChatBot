@@ -23,7 +23,7 @@ discord_token = os.getenv("DISCORD_TOKEN")
 weather_api_key = os.getenv("WEATHER_API_KEY") # Provided weather API key
 stock_api_key = os.getenv("STOCK_API_KEY" ) # Provided stock API key
 news_api_key = os.getenv("NEWS_API_KEY")  # Provided News API key
-translation_api_key = os.getenv("TRANSLATION_API_KEY")
+
 
 # Initialize global chat variable
 chat = ""
@@ -97,26 +97,34 @@ class MyClient(discord.Client):
             print(e)
             await message.channel.send("There was an error processing the stock command.")
 
-    async def handle_news_command(self, message):
-        try:
-            topic = message.content.split(" ", 1)[1]
-            url = f"https://newsapi.org/v2/everything?q={topic}&apiKey={news_api_key}"
-            response = requests.get(url)
-            if response.status_code == 200:
-                data = response.json()
-                articles = data["articles"][:5]  # Get top 5 articles
-                response_text = "Top news headlines:\n"
-                for article in articles:
-                    response_text += f"- {article['title']} ({article['source']['name']})\n"
-                if not articles:
-                    response_text = "No news articles found for the topic."
-            else:
-                response_text = "Sorry, I couldn't fetch the news information."
-            await message.channel.send(response_text)
-        except Exception as e:
-            print(e)
-            await message.channel.send("There was an error processing the news command.")
-
+   async def handle_news_command(self, message):
+      try:
+        # Split message content to get the topic after the command
+        command_parts = message.content.split(" ", 1)
+        if len(command_parts) < 2:
+            await message.channel.send("Please specify a topic for the news command.")
+            return
+        
+        topic = command_parts[1]
+        url = f"https://newsapi.org/v2/everything?q={topic}&apiKey={news_api_key}"
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            data = response.json()
+            articles = data["articles"][:5]  # Get top 5 articles
+            response_text = "Top news headlines:\n"
+            for article in articles:
+                response_text += f"- {article['title']} ({article['source']['name']})\n"
+            if not articles:
+                response_text = "No news articles found for the topic."
+        else:
+            response_text = "Sorry, I couldn't fetch the news information."
+        
+        await message.channel.send(response_text)
+    
+      except Exception as e:
+        print(e)
+        await message.channel.send("There was an error processing the news command.")
     async def handle_translation_command(self, message):
       try:
         # Split message content into parts
